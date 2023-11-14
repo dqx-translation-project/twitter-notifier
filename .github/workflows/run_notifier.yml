@@ -1,0 +1,40 @@
+---
+name: "run-notifier"
+
+on:
+  schedule:
+    - cron: '*/10 * * * *'
+  workflow_dispatch:
+
+jobs:
+  run-monitor:
+    name: "Run notifier"
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run notifier
+        env:
+          DISCORD_WEBHOOK_MAIN_URL: ${{ secrets.DISCORD_WEBHOOK_MAIN_URL }}
+
+        run: python main.py
+
+      - name: Commit status.json
+        uses: stefanzweifel/git-auto-commit-action@v5
+        id: auto-commit-action
+        with:
+          commit_message: 'Automated update: state.db'
+          file_pattern: 'state.db'
+          branch: main
+          commit_options: '--no-verify --signoff'
+          commit_user_name: 'Github Actions'
+          commit_author: 'Author <actions@github.com>'
