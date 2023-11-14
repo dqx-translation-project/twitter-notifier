@@ -70,10 +70,10 @@ for post in posts:
 
         fx_link = f'https://fxtwitter.com/DQ_X/status/{tweet_id}/en'
 
-        if not results:
-            insert = f"INSERT INTO tweets (date, id, link) VALUES ('{cur_time}', {tweet_id}, '{fx_link}')"
-            cursor.execute(insert)
-            conn.commit()
-        
+        insert = f"INSERT INTO tweets (date, id, link) VALUES ('{cur_time}', {tweet_id}, '{fx_link}')"
+        cursor.execute(insert)
+        conn.commit()
+    
         if WEBHOOK_URLS['main']:
+            print(f'Posting webhook for {fx_link}.')
             notify_webhook(content=fx_link)
