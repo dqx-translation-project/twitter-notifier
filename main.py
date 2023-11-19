@@ -7,7 +7,6 @@ import requests
 import sqlite3
 import sys
 
-
 # for testing. make sure you remove before commiting! :)
 TESTING_WEBHOOK_URL = ''
 WEBHOOK_URLS = {
@@ -73,7 +72,7 @@ for post in posts:
         insert = f"INSERT INTO tweets (date, id, link) VALUES ('{cur_time}', {tweet_id}, '{fx_link}')"
         cursor.execute(insert)
         conn.commit()
-    
+
         if WEBHOOK_URLS['main']:
             print(f'Posting webhook for {fx_link}.')
             notify_webhook(content=fx_link)
