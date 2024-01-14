@@ -27,7 +27,7 @@ jobs:
       - name: Run notifier
         env:
           DISCORD_WEBHOOK_MAIN_URL: ${{ secrets.DISCORD_WEBHOOK_MAIN_URL }}
-        run: sudo echo "185.246.188.57 nitter.net" >> /etc/hosts && python main.py
+        run: echo "185.246.188.57 nitter.net" | sudo tee -a /etc/hosts && python main.py
 
       - name: Commit status.json
         uses: stefanzweifel/git-auto-commit-action@v5
