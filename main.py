@@ -1,14 +1,13 @@
-from discord_webhook import DiscordWebhook, DiscordEmbed
+from bs4 import BeautifulSoup
+from discord_webhook import DiscordEmbed, DiscordWebhook
 
 import datetime
+import deepl
 import os
 import requests
 import sqlite3
 import sys
 import xml.etree.ElementTree as ET
-from bs4 import BeautifulSoup
-import deepl
-
 
 WEBHOOK_URL =  os.environ.get("DISCORD_WEBHOOK_MAIN_URL", "")
 TRANSLATE_KEY = os.environ.get("DEEPL_API_KEY", "")
@@ -34,13 +33,13 @@ def notify_webhook(content: DiscordEmbed):
 def get_tweet_contents(url: str) -> dict:
     response = requests.get(url)
     response.raise_for_status()
-    
+
     soup = BeautifulSoup(response.text, "html.parser")
     content = soup.find(class_="tweet-content media-body").text
     image = soup.find(class_="still-image").get("href")
     if image:
         image = TWITTER + image
-    
+
     return {
         "text": content,
         "image": image
