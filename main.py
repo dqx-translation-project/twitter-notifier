@@ -90,10 +90,10 @@ for row in rss_data[0].iter("item"):
         tweet_description = row.find("description").text
         soup = BeautifulSoup(tweet_description, "html.parser")
 
-        image = soup.get("img", {}).get("src", "")
+        image = soup.find("img")
         if image:
             # "x" (twitter) images link from this domain. will be more reliable than nitter.
-            image = "https://pbs.twimg.com/media/" + image.split('%2F')[-1] + "?format=jpg"
+            image = "https://pbs.twimg.com/media/" + image["src"].split('%2F')[-1] + "?format=jpg"
             print(f"Tweet has image: {image}")
 
         # get the tweet text
