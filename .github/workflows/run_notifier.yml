@@ -33,6 +33,7 @@ jobs:
       - name: Commit state.db
         uses: stefanzweifel/git-auto-commit-action@v5
         id: auto-commit-action
+        if: success() || failure()
         with:
           commit_message: 'Automated update: state.db'
           file_pattern: 'state.db'
