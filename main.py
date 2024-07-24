@@ -83,16 +83,17 @@ for row in rss_data[0].iter("item"):
     results = cursor.fetchone()
 
     if not results:
+        print(f"Nitter instance: {nitter_instance}")
         print(f"New tweet: {tweet}")
 
         # get the tweet image first (if it exists)
         tweet_description = row.find("description").text
         soup = BeautifulSoup(tweet_description, "html.parser")
 
-        image = soup.img.get('src')
+        image = soup.find("img")
         if image:
             # "x" (twitter) images link from this domain. will be more reliable than nitter.
-            image = "https://pbs.twimg.com/media/" + image.split('%2F')[-1] + "?format=jpg"
+            image = "https://pbs.twimg.com/media/" + image["src"].split('%2F')[-1] + "?format=jpg"
             print(f"Tweet has image: {image}")
 
         # get the tweet text
@@ -125,5 +126,4 @@ for row in rss_data[0].iter("item"):
             cursor.execute(insert)
             conn.commit()
 
-print(f"Job completed on nitter instance: {nitter_instance}")
 cursor.close()
