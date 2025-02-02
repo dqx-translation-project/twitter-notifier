@@ -39,10 +39,3 @@ repos:
     - id: isort
       name: Sort imports
       args: ['--multi-line', '3', '--trailing-comma', '--force-alphabetical-sort', '--combine-star', '--skip-gitignore', '--color', '--atomic']
-      exclude: ^app/pymem  # forked module
-- repo: https://github.com/PyCQA/docformatter
-  rev: v1.7.5
-  hooks:
-  - id: docformatter
-    name: Format docstrings
-    exclude: ^app/pymem  # forked module
