@@ -1,6 +1,6 @@
 repos:
 - repo: https://github.com/pre-commit/pre-commit-hooks
-  rev: v4.6.0
+  rev: v5.0.0
   hooks:
     - id: end-of-file-fixer
       name: Check for newline at end of file
@@ -27,14 +27,14 @@ repos:
     - id: detect-secrets
       name: Checking for potential passwords
 - repo: https://github.com/asottile/pyupgrade
-  rev: v3.16.0
+  rev: v3.19.1
   hooks:
   - id: pyupgrade
     name: Upgrade previous versioned Python syntax to newer version
     args: ['--py311-plus']
     exclude: ^app/pymem  # forked module
 - repo: https://github.com/pycqa/isort
-  rev: 5.13.2
+  rev: 6.0.1
   hooks:
     - id: isort
       name: Sort imports
